@@ -2,7 +2,7 @@ const process = require('process')
 
 var { app, BrowserWindow, Tray, Menu } = require('electron')
 
-const home = 'http://localhost:3000'
+const home = 'https://nura-pwa.vercel.app/login'
 
 const appIcon = __dirname + '/logo.png';
 let tray;
