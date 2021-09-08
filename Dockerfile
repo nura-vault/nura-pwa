@@ -1,11 +1,21 @@
-FROM tiangolo/node-frontend:10 as build-stage
+FROM node:13.12.0-alpine
 
+# set working directory
 WORKDIR /app
-COPY package*.json /app/
-RUN npm install
-COPY ./ /app/
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install app dependencies
+COPY package*.json ./
+RUN npm install --silent
+RUN npm install serve -g --silent
+
+# add app
+COPY . ./
+
+# build
 RUN npm run build
 
-FROM nginx:1.15
-COPY --from=build-stage /app/build/ /usr/share/nginx/html
-COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
+# start app
+CMD ["serve", "-s", "build", "-p", "80"]
