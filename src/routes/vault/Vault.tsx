@@ -28,13 +28,6 @@ function Vault() {
 
     const vault = useSelector(state => state.vault);
 
-    function test() {
-        addPasswordToVault(dispatch, history, mail, token, masterToken, {
-            identifier: 'test2',
-            password: 'test',
-        })
-    }
-
     function archivePassword(identifier: string, password: string) {
         removePasswordFromVault(dispatch, history, mail, token, {
             identifier: identifier,
@@ -118,7 +111,7 @@ function Vault() {
                         text: 'Archive'
                     },
                     {
-                        fallback: '/vault',
+                        fallback: '/vault/create',
                         boxicon: 'bx bxs-plus-circle',
                         text: 'Add'
                     },

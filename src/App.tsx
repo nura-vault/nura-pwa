@@ -9,6 +9,7 @@ import Login from './routes/login/Login';
 import Token from './routes/login/Token';
 import Logout from './routes/logout/Logout';
 import Archive from './routes/vault/Archive';
+import Create from './routes/vault/Create';
 import Vault from './routes/vault/Vault';
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
         <Route path="/login/token" exact component={Token} />
         <Route path="/logout" exact component={Logout} />
         <Route path="/vault" exact component={Vault} />
+        <Route path="/vault/create" exact component={Create} />
         <Route path="/vault/archive" exact component={Archive} />
       </Switch>
       <Validate
