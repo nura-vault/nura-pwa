@@ -2,9 +2,9 @@ const process = require('process')
 
 var { app, BrowserWindow, Tray, Menu } = require('electron')
 
-const home = 'http://localhost:3000/'
+const home = 'http://167.86.120.207:8079'
 
-const appIcon = __dirname + '/logo.png';
+const appIcon = __dirname + '/favicon.ico';
 let tray;
 
 const handleReady = () => {
