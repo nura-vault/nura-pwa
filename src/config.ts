@@ -1,3 +1,3 @@
 export const config = {
-    host: 'http://167.86.120.207:8080',
+    host: 'https://micartey.dev:8080',
 }

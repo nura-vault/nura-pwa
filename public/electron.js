@@ -2,7 +2,7 @@ const process = require('process')
 
 var { app, BrowserWindow, Tray, Menu } = require('electron')
 
-const home = 'http://167.86.120.207:8079'
+const home = 'https://nura-pwa.vercel.app/'
 
 const appIcon = __dirname + '/favicon.ico';
 let tray;
@@ -53,13 +53,13 @@ const createWindow = async () => {
   tray.setContextMenu(Menu.buildFromTemplate([
     {
       label: 'Vault', click: function () {
-        window.loadURL(home + '/vault')
+        window.loadURL(home + 'vault')
         window.show()
       }
     },
     {
       label: 'Logout', click: function () {
-        window.loadURL(home + '/logout')
+        window.loadURL(home + 'logout')
         window.show()
       }
     },
