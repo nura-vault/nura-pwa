@@ -63,7 +63,7 @@ You can visit [nura](https://nura-pwa.vercel.app/) to create an account and star
 
 ## 🧱 Build it yourself
 
-In case you want to host it yourself because of securety concerns, make sure to have either [docker](https://www.docker.com/) or [Java-11](http://jdk.java.net/java-se-ri/11) and [Node.js](https://nodejs.org/en/) installed. It is recommended to use [docker](https://www.docker.com/) though, since it provides additional security (e.g. to the database). Here is an installation guide for the **webpage**. You can find an installation guide for the backend [here](https://github.com/nura-vault/nura-backend). In case you want to use your own backend, make sure to edit the `src/config.ts` file after cloning.
+In case you want to host it yourself because of security concerns, make sure to have either [docker](https://www.docker.com/) or [Java-11](http://jdk.java.net/java-se-ri/11) and [Node.js](https://nodejs.org/en/) installed. It is recommended to use [docker](https://www.docker.com/) though, since it provides additional security (e.g. to the database). Here is an installation guide for the **webpage**. You can find an installation guide for the backend [here](https://github.com/nura-vault/nura-backend). In case you want to use your own backend, make sure to edit the `src/config.ts` file after cloning.
 
 ### 🐳 Dockerized
 
