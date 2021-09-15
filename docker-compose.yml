@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  nura:
+    build: .
+    container_name: nura
+    ports:
+      - "80:80"
