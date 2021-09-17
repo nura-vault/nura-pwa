@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Alert from 'react-s-alert';
 import styled from 'styled-components';
 import { addPasswordToArchive } from '../../api/Archive';
-import { addPasswordToVault, decryptPassword, getVault, removePasswordFromVault } from '../../api/Vault';
+import { decryptPassword, getVault, removePasswordFromVault } from '../../api/Vault';
 import PasswordList from '../../components/PasswordList';
 import { useDispatch, useSelector } from '../../store/store';
 
