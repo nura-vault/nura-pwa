@@ -26,6 +26,30 @@ const Panel = styled.div`
     align-content: center;
 `
 
+const RightPanel = styled.div`
+	width: 50%;
+	overflow: hidden;
+
+    padding: 40px;
+
+    background: #FF416C;
+    background: linear-gradient(to right, #FF4B2B, #FF416C);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+
+    animation: fadeIn 0.5s;
+
+    @keyframes fadeIn {
+        0% {
+            transform: translate(50%, 0);
+        }
+        100% {
+            transform: translate(0, 0);
+        }
+    }
+`
+
 const Button = styled.button`
     background-color: #00000000;
     border: none;
@@ -35,8 +59,7 @@ const Button = styled.button`
     font-family: 'Montserrat', sans-serif;
 
     &:hover {
-        border-top: 1px solid grey;
-        border-bottom: 1px solid grey;
+        background-color: #ffffff08 !important;
     }
 `
 
@@ -80,6 +103,10 @@ const Text = styled.p`
     margin-top: -10px;
 `
 
+const SelectableText = styled.div`
+    user-select: text;
+`
+
 interface Controll {
     fallback: string,
     boxicon: string,
@@ -99,12 +126,62 @@ interface Props {
     controll?: Controll[]
 }
 
+
+function useWindowSize() {
+    const [size, setSize] = React.useState([0, 0]);
+    React.useLayoutEffect(() => {
+        function updateSize() {
+            setSize([window.innerWidth, window.innerHeight]);
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;
+}
+
 function PasswordList(props: Props) {
+
+    const information: React.RefObject<HTMLDivElement> = React.createRef();
+
+    const [selected, setSelected] = React.useState<Password>()
+    const [width, height] = useWindowSize();
 
     const history = useHistory()
 
     function copyPassword(password: string) {
         props.copy && props.copy(password);
+    }
+
+    function selectPassword(password: Password) {
+        if (!information.current) {
+            copyPassword(password.password);
+            return
+        }
+
+        setSelected(password);
+    }
+
+    React.useEffect(() => {
+        if (!props.passwords || props.passwords.length == 0 || !information.current) {
+            setSelected(undefined);
+            return;
+        }
+
+        const firstPassword = props.passwords[0];
+        setSelected(firstPassword);
+    }, [width, height]);
+
+    const InformationPanel = () => {
+        if (width < 600) return null;
+
+        return (
+            <RightPanel ref={information}>
+                <SelectableText>
+                    {selected?.identifier}
+                </SelectableText>
+            </RightPanel>
+        );
     }
 
     return (
@@ -114,7 +191,11 @@ function PasswordList(props: Props) {
                     {!props.passwords || props.passwords.length === 0 ? props.empty : null}
                     {props.passwords && props.passwords.map(password => {
                         return (
-                            <Button key={password.identifier + password.password} onClick={() => copyPassword(password.password)}>
+                            <Button key={password.identifier + password.password} onClick={() => selectPassword(password)} style={{
+                                backgroundColor: selected?.identifier === password.identifier && selected.password == password.password ?
+                                    "#ffffff21" :
+                                    "#00000000",
+                            }}>
                                 <div>
                                     <Text>
                                         {password.identifier} <br />
@@ -128,6 +209,7 @@ function PasswordList(props: Props) {
                         )
                     })}
                 </Panel>
+                <InformationPanel />
             </Container>
             <ControllContainer>
                 {props.controll && props.controll.map(controll => {
