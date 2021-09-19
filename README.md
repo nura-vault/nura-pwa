@@ -59,7 +59,7 @@ An important aspect to mention is, that your passwords are sill encrypted when s
 
 ## 💿 Installation
 
-You can visit [nura](https://nura-pwa.vercel.app/) to create an account and start right away. As an alternative you can install the app through your browser or even install nura as an application written in [electron](https://www.electronjs.org/). The installation process is quite simple and intuitive. First you have to download the latest release of the installer form the [releases](https://github.com/nura-vault/nura-backend/releases) for your platform (*currently windows only*).
+You can visit [nura](https://nura-pwa.vercel.app/) to create an account and start right away. As an alternative you can install the app through your browser or even install nura as an application written in [electron](https://www.electronjs.org/). The installation process is quite simple and intuitive. First you have to download the latest release of the installer form the [releases](https://github.com/nura-vault/nura-pwa/releases) for your platform (*currently windows only*).
 
 ## 🧱 Build it yourself
 
