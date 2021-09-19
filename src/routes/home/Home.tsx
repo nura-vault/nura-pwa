@@ -25,8 +25,8 @@ function Home() {
 
         return (
             <div className="navbar">
-                <Link to="/login"> Login </Link>
                 <Link to="/vault"> Vault </Link>
+                <Link to="/logout"> Logout </Link>
             </div>
         );
     }

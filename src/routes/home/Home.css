@@ -1,5 +1,6 @@
 .navbar {
     display: flex;
+    justify-content: space-between;
     position: fixed;
     flex-direction: row;
     background-color: #24292e;
@@ -8,8 +9,15 @@
 
 .navbar a {
     padding: 10px 20px;
+    text-decoration: none;
     color: rgb(197, 188, 188);
+    border-right: 1px solid rgb(99, 98, 98);
 }
+
+.navbar a:hover {
+    background-color: rgb(22, 21, 21);
+}
+
 
 .markdown {
     display: flex;
