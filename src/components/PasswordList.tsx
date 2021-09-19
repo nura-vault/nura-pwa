@@ -159,6 +159,11 @@ function PasswordList(props: Props) {
             return
         }
 
+        if (selected?.identifier === password.identifier && selected.password == password.password) {
+            copyPassword(password.password);
+            return;
+        }
+
         setSelected(password);
     }
 
