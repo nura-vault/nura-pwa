@@ -1,5 +1,3 @@
-const process = require('process')
-
 var { app, BrowserWindow, Tray, Menu } = require('electron')
 
 const home = 'https://nura-pwa.vercel.app/'
@@ -52,14 +50,14 @@ const createWindow = async () => {
   tray = new Tray(appIcon)
   tray.setContextMenu(Menu.buildFromTemplate([
     {
-      label: 'Vault', click: function () {
-        window.loadURL(home + 'vault')
+      label: 'Home', click: function () {
+        window.loadURL(home)
         window.show()
       }
     },
     {
-      label: 'Logout', click: function () {
-        window.loadURL(home + 'logout')
+      label: 'Vault', click: function () {
+        window.loadURL(home + 'vault')
         window.show()
       }
     },
@@ -75,6 +73,6 @@ const createWindow = async () => {
   window.setFullScreenable(false)
   window.setIcon(appIcon)
   window.setResizable(false)
-  await window.loadURL(home)
+  await window.loadURL(home + 'vault')
   return window
 }
