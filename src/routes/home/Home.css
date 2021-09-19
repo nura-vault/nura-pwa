@@ -1,0 +1,33 @@
+.navbar {
+    display: flex;
+    position: fixed;
+    flex-direction: row;
+    background-color: #24292e;
+    width: 100%;
+}
+
+.navbar a {
+    padding: 10px 20px;
+    color: rgb(197, 188, 188);
+}
+
+.markdown {
+    display: flex;
+    flex-direction: column;
+    user-select: text;
+}
+
+.markdown h1, h2, h3, p, pre, details {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.markdown a {
+    color: grey;
+}
+
+.markdown img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
