@@ -85,7 +85,7 @@ In case you  just want to build the app yourself, you can use the following comm
 $ npm run build
 ```
 
-Now you can deply the production elsewhere. It is recommended to use [nginx](https://www.nginx.com/) as a reverse proxy and [certbot](https://certbot.eff.org/) to get a ssl certificate to ensure an secure connection.
+Now you can deploy the production elsewhere. It is recommended to use [nginx](https://www.nginx.com/) as a reverse proxy and [certbot](https://certbot.eff.org/) to get a ssl certificate to ensure an secure connection.
 
 <details>
     <summary> Installation on nginx with certbot </summary>
