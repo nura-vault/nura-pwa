@@ -1,3 +1,4 @@
+import { eventNames } from "process";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -159,7 +160,7 @@ function PasswordList(props: Props) {
             return
         }
 
-        if (selected?.identifier === password.identifier && selected.password == password.password) {
+        if (selected?.identifier === password.identifier && selected.password === password.password) {
             copyPassword(password.password);
             return;
         }
@@ -167,18 +168,22 @@ function PasswordList(props: Props) {
         setSelected(password);
     }
 
-    React.useEffect(() => {
-        if (!props.passwords || props.passwords.length == 0 || !information.current) {
+    function selectDefault() {
+        if (!props.passwords || props.passwords.length === 0 || !information.current) {
             setSelected(undefined);
             return;
         }
 
         const firstPassword = props.passwords[0];
         setSelected(firstPassword);
+    }
+
+    React.useEffect(() => {
+        selectDefault();
     }, [width, height]);
 
     const InformationPanel = () => {
-        if (width < 600) return null;
+        if (width < 600 || props.passwords?.length === 0) return null;
 
         return (
             <RightPanel ref={information}>
@@ -197,7 +202,7 @@ function PasswordList(props: Props) {
                     {props.passwords && props.passwords.map(password => {
                         return (
                             <Button key={password.identifier + password.password} onClick={() => selectPassword(password)} style={{
-                                backgroundColor: selected?.identifier === password.identifier && selected.password == password.password ?
+                                backgroundColor: selected?.identifier === password.identifier && selected.password === password.password ?
                                     "#ffffff21" :
                                     "#00000000",
                             }}>
@@ -206,7 +211,15 @@ function PasswordList(props: Props) {
                                         {password.identifier} <br />
                                         *********
                                     </Text>
-                                    <DeleteContainer>
+                                    <DeleteContainer onClick={event => {
+                                        if (event.target === event.currentTarget)
+                                            return;
+
+                                        event.stopPropagation();
+
+                                        if (selected?.identifier === password.identifier && selected.password === password.password)
+                                            selectDefault();
+                                    }}>
                                         {props.children && props.children(password)}
                                     </DeleteContainer>
                                 </div>

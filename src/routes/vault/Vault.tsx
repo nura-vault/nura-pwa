@@ -131,7 +131,6 @@ function Vault() {
             {(password) => (<>
                 <Delete onClick={event => {
                     archivePassword(password.identifier, password.password)
-                    event.stopPropagation()
                 }}>
                     <i className='bx bxs-archive-in'></i>
                 </Delete>

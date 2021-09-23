@@ -3,7 +3,6 @@ import isElectron from 'is-electron';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Validate from './components/Validate';
 import Home from './routes/home/Home';
 import Login from './routes/login/Login';
 import Token from './routes/login/Token';
@@ -55,10 +54,6 @@ function App() {
         <Route path="/vault/create" exact component={Create} />
         <Route path="/vault/archive" exact component={Archive} />
       </Switch>
-      <Validate
-        fallback="/login"
-        localStore="state"
-      />
     </Router>
   </>);
 }

@@ -142,13 +142,11 @@ function Archive() {
             {(password) => (<>
                 <Delete onClick={event => {
                     unarchivePassword(password.identifier, password.password)
-                    event.stopPropagation()
                 }}>
                     <i className='bx bxs-archive-out'></i>
                 </Delete>
                 <Delete onClick={event => {
                     removePassword(password.identifier, password.password)
-                    event.stopPropagation()
                 }}>
                     <i className='bx bxs-trash'></i>
                 </Delete>
