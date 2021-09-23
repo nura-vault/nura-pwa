@@ -1,6 +1,6 @@
 var { app, BrowserWindow, Tray, Menu } = require('electron')
 
-const home = 'https://nura-pwa.vercel.app/'
+const home = 'https://nura.vercel.app/'
 
 const appIcon = __dirname + '/favicon.ico';
 let tray;
