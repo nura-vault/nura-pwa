@@ -18,7 +18,7 @@ function Home() {
 
     const Navbar = () => {
         if (isElectron())
-        return null;
+            return null;
 
         return (
             <div className="navbar">
@@ -41,11 +41,14 @@ function Home() {
 
     return (<>
         <Navbar />
-        <div className="markdown">
-            <br />
-            <br />
-            <br />
-            <ReactMarkdown rehypePlugins={[rehypeRaw]} children={content} />,
+        <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            paddingTop: '50px'
+        }}>
+            <div className="markdown">
+                <ReactMarkdown rehypePlugins={[rehypeRaw]} children={content} />,
+            </div>
         </div>
     </>);
 }
