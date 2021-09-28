@@ -14,8 +14,6 @@ import Vault from './routes/vault/Vault';
 
 function App() {
 
-  const history = useHistory();
-
   const Titlebar = () => {
     if (!isElectron())
       return null;
@@ -45,15 +43,6 @@ function App() {
     )
   }
 
-  const handleUser = () => {
-    if (config.firstLoad) {
-      if (localStorage.getItem("state"))
-        history.push("/vault");
-      config.firstLoad = false;
-      return;
-    }
-  }
-
   return (<>
     {Titlebar()}
     <Router>
@@ -67,7 +56,6 @@ function App() {
         <Route path="/vault/archive" exact component={Archive} />
       </Switch>
     </Router>
-    {handleUser()}
   </>);
 }
 
