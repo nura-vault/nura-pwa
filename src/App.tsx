@@ -1,8 +1,9 @@
 import TitleBar from 'frameless-titlebar';
 import isElectron from 'is-electron';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
+import { config } from './config';
 import Home from './routes/home/Home';
 import Login from './routes/login/Login';
 import Token from './routes/login/Token';
@@ -12,6 +13,17 @@ import Create from './routes/vault/Create';
 import Vault from './routes/vault/Vault';
 
 function App() {
+
+  const history = useHistory();
+
+  React.useEffect(() => {
+    if (config.firstLoad) {
+      if (localStorage.getItem("state"))
+        history.push("/vault");
+      config.firstLoad = false;
+      return;
+    }
+  }, []);
 
   const Titlebar = () => {
     if (!isElectron())
