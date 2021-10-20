@@ -1,8 +1,8 @@
 import React from 'react'
 import Alert from 'react-s-alert';
 import { useHistory } from 'react-router-dom';
-import { signin } from '../../api/SignIn';
-import { signup } from '../../api/SignUp';
+import { signin } from '../../endpoints/SignIn';
+import { signup } from '../../endpoints/SignUp';
 import { Form, Input, Button, Parent } from '../../components/styled/Formular';
 
 import { useDispatch } from '../../store/store';

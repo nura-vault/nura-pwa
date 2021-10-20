@@ -1,7 +1,7 @@
-import { eventNames } from "process";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { Password } from "../store/vaultSlice";
 import { Container } from "./styled/Container";
 
 const Parent = styled.div`
@@ -108,15 +108,14 @@ const SelectableText = styled.div`
     user-select: text;
 `
 
+const Link = styled.a`
+    color: white;
+`
+
 interface Controll {
     fallback: string,
     boxicon: string,
     text: string
-}
-
-interface Password {
-    identifier: string
-    password: string
 }
 
 interface Props {
@@ -188,7 +187,23 @@ function PasswordList(props: Props) {
         return (
             <RightPanel ref={information}>
                 <SelectableText>
-                    {selected?.identifier}
+                    <h2 style={{
+                        margin: 0,
+                        padding: 0
+                    }}> {selected?.username} </h2> <br />
+                    <p style={{
+                        margin: 0,
+                        padding: 0,
+                        fontSize: '10px'
+                    }}> Website: </p>
+                    <Link href={selected?.website}> {selected?.website} </Link> <br />
+                    <p style={{
+                        margin: 0,
+                        padding: 0,
+                        fontSize: '15px',
+                        position: "absolute",
+                        bottom: '10px'
+                    }}> Click again to copy password! </p>
                 </SelectableText>
             </RightPanel>
         );

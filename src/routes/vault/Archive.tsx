@@ -2,10 +2,11 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Alert from 'react-s-alert';
 import styled from 'styled-components';
-import { getArchive, removePasswordFromArchive } from '../../api/Archive';
-import { addPasswordToVault, decryptPassword } from '../../api/Vault';
+import { getArchive, removePasswordFromArchive } from '../../endpoints/Archive';
+import { addPasswordToVault, decryptPassword } from '../../endpoints/Vault';
 import PasswordList from '../../components/PasswordList';
 import { useDispatch, useSelector } from '../../store/store';
+import { Password } from '../../store/vaultSlice';
 
 const Delete = styled.div`
     background-color: #00000000;
@@ -30,11 +31,8 @@ function Archive() {
 
     const archive = useSelector(state => state.archive);
 
-    function removePassword(identifier: string, password: string) {
-        removePasswordFromArchive(dispatch, history, mail, token, {
-            identifier: identifier,
-            password: password,
-        })
+    function removePassword(password: Password) {
+        removePasswordFromArchive(dispatch, history, mail, token, password)
 
         Alert.error('Password deleted!', {
             position: 'bottom',
@@ -44,16 +42,10 @@ function Archive() {
 
     }
 
-    function unarchivePassword(identifier: string, password: string) {
-        addPasswordToVault(dispatch, history, mail, token, masterToken, {
-            identifier: identifier,
-            password: decryptPassword(password, masterToken),
-        });
+    function unarchivePassword(password: Password) {
+        addPasswordToVault(dispatch, history, mail, token, masterToken, password);
 
-        removePasswordFromArchive(dispatch, history, mail, token, {
-            identifier: identifier,
-            password: password,
-        })
+        removePasswordFromArchive(dispatch, history, mail, token, password)
 
         Alert.info('Password unarchived', {
             position: 'bottom',
@@ -141,12 +133,12 @@ function Archive() {
         >
             {(password) => (<>
                 <Delete onClick={event => {
-                    unarchivePassword(password.identifier, password.password)
+                    unarchivePassword(password)
                 }}>
                     <i className='bx bxs-archive-out'></i>
                 </Delete>
                 <Delete onClick={event => {
-                    removePassword(password.identifier, password.password)
+                    removePassword(password)
                 }}>
                     <i className='bx bxs-trash'></i>
                 </Delete>

@@ -2,24 +2,17 @@ import { AES } from "crypto-js";
 import { config } from "../config";
 import { offline } from "../store/offlineSlice";
 import { Dispatch } from "../store/store";
-import { vault } from "../store/vaultSlice";
-
-interface Password {
-    identifier: string;
-    password: string;
-}
+import { Password, vault } from "../store/vaultSlice";
+import CryptoJS from "crypto-js"
 
 export function getVault(dispatch: Dispatch, history: any, mail: string, token: string) {
     fetch(config.host + '/api/vault', {
-        method: 'POST',
+        method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        },
-        body: JSON.stringify({
-            'mail': mail,
-            'token': token,
-        })
+            'Authorization': CryptoJS.enc.Base64.stringify(
+                CryptoJS.enc.Utf8.parse(`${mail}:${token}`)
+            ),
+        }
     }).then(result => result.json()).then(data => {
         dispatch(vault.clearPasswords());
 
@@ -31,24 +24,29 @@ export function getVault(dispatch: Dispatch, history: any, mail: string, token: 
         for (let entry of data.vault) {
             dispatch(vault.addPassword({
                 identifier: entry.identifier,
+                website: entry.website,
+                username: entry.username,
                 password: entry.password
             }));
         }
+    }).catch(() => {
+        history.push("/logout")
     })
 }
 
 export function addPasswordToVault(dispatch: Dispatch, history: any, mail: string, token: string, masterToken: string, password: Password) {
-
     const requestData = {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+            'Authorization': CryptoJS.enc.Base64.stringify(
+                CryptoJS.enc.Utf8.parse(`${mail}:${token}`)
+            ),
         },
         body: JSON.stringify({
-            'mail': mail,
-            'token': token,
             'identifier': password.identifier,
+            'website': password.website,
+            'username': password.username,
             'password': AES.encrypt(password.password, masterToken).toString()
         })
     }
@@ -64,6 +62,8 @@ export function addPasswordToVault(dispatch: Dispatch, history: any, mail: strin
         for (let entry of data.vault) {
             dispatch(vault.addPassword({
                 identifier: entry.identifier,
+                website: entry.website,
+                username: entry.username,
                 password: entry.password
             }));
         }
@@ -76,18 +76,21 @@ export function addPasswordToVault(dispatch: Dispatch, history: any, mail: strin
 
         dispatch(vault.addPassword({
             identifier: password.identifier,
+            website: password.website,
+            username: password.username,
             password: AES.encrypt(password.password, masterToken).toString()
         }));
     })
 }
 
 export function removePasswordFromVault(dispatch: Dispatch, history: any, mail: string, token: string, password: Password) {
-
     const requestData = {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+            'Authorization': CryptoJS.enc.Base64.stringify(
+                CryptoJS.enc.Utf8.parse(`${mail}:${token}`)
+            ),
         },
         body: JSON.stringify({
             'mail': mail,

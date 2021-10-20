@@ -2,23 +2,17 @@ import { config } from "../config";
 import { archive } from "../store/archiveSlice";
 import { offline } from "../store/offlineSlice";
 import { Dispatch } from "../store/store";
-
-interface Password {
-    identifier: string;
-    password: string;
-}
+import CryptoJS from "crypto-js"
+import { Password } from "../store/vaultSlice";
 
 export function getArchive(dispatch: Dispatch, history: any, mail: string, token: string) {
     fetch(config.host + '/api/archive', {
-        method: 'POST',
+        method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        },
-        body: JSON.stringify({
-            'mail': mail,
-            'token': token,
-        })
+            'Authorization': CryptoJS.enc.Base64.stringify(
+                CryptoJS.enc.Utf8.parse(`${mail}:${token}`)
+            ),
+        }
     }).then(result => result.json()).then(data => {
         dispatch(archive.clearPasswords());
 
@@ -30,6 +24,8 @@ export function getArchive(dispatch: Dispatch, history: any, mail: string, token
         for (let entry of data.vault) {
             dispatch(archive.addPassword({
                 identifier: entry.identifier,
+                website: entry.website,
+                username: entry.username,
                 password: entry.password
             }));
         }
@@ -37,18 +33,17 @@ export function getArchive(dispatch: Dispatch, history: any, mail: string, token
 }
 
 export function addPasswordToArchive(dispatch: Dispatch, history: any, mail: string, token: string, password: Password) {
-
     const requestData = {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+            'Authorization': CryptoJS.enc.Base64.stringify(
+                CryptoJS.enc.Utf8.parse(`${mail}:${token}`)
+            ),
         },
         body: JSON.stringify({
-            'mail': mail,
-            'token': token,
             'identifier': password.identifier,
-            'password': password.password,
+            'password': password.password
         })
     }
 
@@ -63,6 +58,8 @@ export function addPasswordToArchive(dispatch: Dispatch, history: any, mail: str
         for (let entry of data.vault) {
             dispatch(archive.addPassword({
                 identifier: entry.identifier,
+                website: entry.website,
+                username: entry.username,
                 password: entry.password
             }));
         }
@@ -75,22 +72,23 @@ export function addPasswordToArchive(dispatch: Dispatch, history: any, mail: str
 
         dispatch(archive.addPassword({
             identifier: password.identifier,
+            website: password.website,
+            username: password.username,
             password: password.password
         }));
     })
 }
 
 export function removePasswordFromArchive(dispatch: Dispatch, history: any, mail: string, token: string, password: Password) {
-
     const requestData = {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+            'Authorization': CryptoJS.enc.Base64.stringify(
+                CryptoJS.enc.Utf8.parse(`${mail}:${token}`)
+            ),
         },
         body: JSON.stringify({
-            'mail': mail,
-            'token': token,
             'identifier': password.identifier,
             'password': password.password
         })

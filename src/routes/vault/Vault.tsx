@@ -2,10 +2,11 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Alert from 'react-s-alert';
 import styled from 'styled-components';
-import { addPasswordToArchive } from '../../api/Archive';
-import { decryptPassword, getVault, removePasswordFromVault } from '../../api/Vault';
+import { addPasswordToArchive } from '../../endpoints/Archive';
+import { decryptPassword, getVault, removePasswordFromVault } from '../../endpoints/Vault';
 import PasswordList from '../../components/PasswordList';
 import { useDispatch, useSelector } from '../../store/store';
+import { Password } from '../../store/vaultSlice';
 
 const Delete = styled.div`
     background-color: #00000000;
@@ -28,16 +29,10 @@ function Vault() {
 
     const vault = useSelector(state => state.vault);
 
-    function archivePassword(identifier: string, password: string) {
-        removePasswordFromVault(dispatch, history, mail, token, {
-            identifier: identifier,
-            password: password,
-        });
+    function archivePassword(password: Password) {
+        removePasswordFromVault(dispatch, history, mail, token, password);
 
-        addPasswordToArchive(dispatch, history, mail, token, {
-            identifier: identifier,
-            password: password,
-        })
+        addPasswordToArchive(dispatch, history, mail, token, password)
 
         Alert.info('Password archived!', {
             position: 'bottom',
@@ -130,7 +125,7 @@ function Vault() {
         >
             {(password) => (<>
                 <Delete onClick={event => {
-                    archivePassword(password.identifier, password.password)
+                    archivePassword(password)
                 }}>
                     <i className='bx bxs-archive-in'></i>
                 </Delete>

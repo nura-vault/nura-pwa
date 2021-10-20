@@ -1,11 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { Password } from "./vaultSlice"
 
 export type PasswordListState = Password[]
-
-interface Password {
-    identifier: string
-    password: string
-}
 
 export const initialPasswordListState: PasswordListState = []
 

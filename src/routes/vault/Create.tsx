@@ -1,8 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 import Alert from 'react-s-alert';
-import { generatePassword } from "../../api/Password"
-import { addPasswordToVault } from "../../api/Vault"
+import { generatePassword } from "../../endpoints/Password"
+import { addPasswordToVault } from "../../endpoints/Vault"
 import { Button, Input } from "../../components/styled/Formular"
 import { useDispatch, useSelector } from "../../store/store"
 import { useHistory } from "react-router";
@@ -62,6 +62,8 @@ const Panel = styled.div`
 function Create() {
 
     const identifier: React.RefObject<HTMLInputElement> = React.createRef();
+    const website: React.RefObject<HTMLInputElement> = React.createRef();
+    const username: React.RefObject<HTMLInputElement> = React.createRef();
     const password: React.RefObject<HTMLInputElement> = React.createRef();
 
     const dispatch = useDispatch();
@@ -78,7 +80,7 @@ function Create() {
     }
 
     function handleCreate() {
-        if (!identifier.current || !password.current) return;
+        if (!identifier.current || !password.current || !username.current || !website.current) return;
 
         if (identifier.current.value === "" || password.current.value === "") {
             Alert.error('Please fill in all fields', {
@@ -90,6 +92,8 @@ function Create() {
 
         addPasswordToVault(dispatch, history, mail, token, masterToken, {
             identifier: identifier.current.value,
+            website: website.current.value,
+            username: username.current.value,
             password: password.current.value,
         })
 
@@ -108,6 +112,8 @@ function Create() {
                         <h1>Create</h1>
 
                         <Input type="text" placeholder="identifier" ref={identifier} />
+                        <Input type="text" placeholder="website" ref={website} />
+                        <Input type="text" placeholder="username" ref={username} />
                         <Input type="password" placeholder="password" ref={password} />
 
                         <div style={{

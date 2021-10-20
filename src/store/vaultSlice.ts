@@ -2,8 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export type PasswordListState = Password[]
 
-interface Password {
+export interface Password {
     identifier: string
+    website: string
+    username: string
     password: string
 }
 

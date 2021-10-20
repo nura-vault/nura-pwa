@@ -5,10 +5,9 @@ import { Dispatch } from "../store/store";
 
 export function signup(dispatch: Dispatch, username: string, mail: string, password: string, success: () => void, error?: (error: string) => void) {
     return fetch(config.host +'/api/signup', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             'username': username,
