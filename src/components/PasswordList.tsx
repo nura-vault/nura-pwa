@@ -196,7 +196,7 @@ function PasswordList(props: Props) {
                         padding: 0,
                         fontSize: '10px'
                     }}> Website: </p>
-                    <Link href={selected?.website}> {selected?.website} </Link> <br />
+                    <Link href={selected?.website} target="_blank"> {selected?.website} </Link> <br />
                     <p style={{
                         margin: 0,
                         padding: 0,
