@@ -1,6 +1,6 @@
 var { app, BrowserWindow, Tray, Menu } = require('electron')
 
-const home = 'https://nura.vercel.app/'
+const home = 'https://nura.micartey.dev'
 
 const appIcon = __dirname + '/favicon.ico';
 let tray;
@@ -57,7 +57,7 @@ const createWindow = async () => {
     },
     {
       label: 'Vault', click: function () {
-        window.loadURL(home + 'vault')
+        window.loadURL(home + '/vault')
         window.show()
       }
     },
@@ -73,6 +73,6 @@ const createWindow = async () => {
   window.setFullScreenable(false)
   window.setIcon(appIcon)
   window.setResizable(false)
-  await window.loadURL(home + 'vault')
+  await window.loadURL(home + '/vault')
   return window
 }
