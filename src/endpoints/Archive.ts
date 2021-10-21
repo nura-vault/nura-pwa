@@ -43,6 +43,8 @@ export function addPasswordToArchive(dispatch: Dispatch, history: any, mail: str
         },
         body: JSON.stringify({
             'identifier': password.identifier,
+            'website': password.website,
+            'username': password.username,
             'password': password.password
         })
     }
