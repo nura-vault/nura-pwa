@@ -1,7 +1,7 @@
 import isElectron from 'is-electron';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import rehypeRaw from 'rehype-raw';
 import Validate from '../../components/Validate';
 import "./Home.css";
@@ -9,8 +9,17 @@ import "./Home.css";
 function Home() {
 
     const [content, setContent] = React.useState(localStorage.getItem("readme") || '');
+    const history = useHistory();
 
     React.useEffect(() => {
+        if (localStorage.getItem("state")) {
+            if (sessionStorage.getItem("session_time"))
+                return;
+
+            history.push("/vault")
+            sessionStorage.setItem("session_time", Date());
+        }
+
         fetch('https://raw.githubusercontent.com/nura-vault/nura-pwa/master/README.md')
             .then((resp) => resp.text())
             .then((text) => {

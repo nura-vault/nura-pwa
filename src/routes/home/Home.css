@@ -25,6 +25,7 @@
     user-select: text;
 
     max-width: 1050px;
+    min-width: 0;
 }
 
 .markdown h1, h2, h3, p, pre, details {
