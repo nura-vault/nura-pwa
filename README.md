@@ -7,9 +7,9 @@
       height="30"
     />
   </a>
-  <a href="https://nura-pwa.vercel.app/" target="_blank">
+  <a href="https://nura.micartey.dev/" target="_blank">
     <img
-      src="https://img.shields.io/badge/live%20on-vercel-%27a147.svg?style=for-the-badge"
+      src="https://img.shields.io/badge/live%20on-micartey-%27a147.svg?style=for-the-badge"
       height="30"
     />
   </a>
