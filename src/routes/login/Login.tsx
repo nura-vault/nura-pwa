@@ -1,15 +1,17 @@
-import React from 'react'
-import Alert from 'react-s-alert';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+import 'react-s-alert/dist/s-alert-default.css';
+import { Button, Form, Input, Parent } from '../../components/styled/Formular';
+import { getArchive } from '../../endpoints/Archive';
 import { signin } from '../../endpoints/SignIn';
 import { signup } from '../../endpoints/SignUp';
-import { Form, Input, Button, Parent } from '../../components/styled/Formular';
+import { getVault } from '../../endpoints/Vault';
+import { useDispatch, useSelector } from '../../store/store';
+import './Login.css';
 
-import { useDispatch } from '../../store/store';
 
-import './Login.css'
-import 'react-s-alert/dist/s-alert-default.css';
-import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 
 const Login = () => {
 
@@ -21,6 +23,9 @@ const Login = () => {
     const signUpPasswordRepeat: React.RefObject<HTMLInputElement> = React.createRef();
     const signUpMail: React.RefObject<HTMLInputElement> = React.createRef();
 
+
+    const token = useSelector(state => state.auth.accessToken);
+    const mail = useSelector(state => state.auth.mail);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -37,6 +42,9 @@ const Login = () => {
         }
 
         signin(dispatch, signInMail.current.value, signInPassword.current.value, () => {
+            getVault(dispatch, history, mail, token)
+            getArchive(dispatch, history, mail, token)
+
             history.push("/login/token")
         }, (error) => {
             Alert.error(error, {
