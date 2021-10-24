@@ -29,8 +29,6 @@ export function getVault(dispatch: Dispatch, history: any, mail: string, token: 
                 password: entry.password
             }));
         }
-    }).catch(() => {
-        history.push("/logout")
     })
 }
 
