@@ -12,7 +12,7 @@ RUN npm install
 
 #############################
 
-FROM node:13.12.0-alpine
+FROM node:13.12.0-alpine AS final
 WORKDIR /app
 
 # add app
