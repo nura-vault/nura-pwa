@@ -23,9 +23,6 @@ const Login = () => {
     const signUpPasswordRepeat: React.RefObject<HTMLInputElement> = React.createRef();
     const signUpMail: React.RefObject<HTMLInputElement> = React.createRef();
 
-
-    const token = useSelector(state => state.auth.accessToken);
-    const mail = useSelector(state => state.auth.mail);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -42,9 +39,6 @@ const Login = () => {
         }
 
         signin(dispatch, signInMail.current.value, signInPassword.current.value, () => {
-            getVault(dispatch, history, mail, token)
-            getArchive(dispatch, history, mail, token)
-
             history.push("/login/token")
         }, (error) => {
             Alert.error(error, {
