@@ -19,7 +19,7 @@
 
 nura is a [PWA](#what-is-a-pwa) that allows you to create and manage your passwords. To start right of, you have to create an account. The backend is also open source and you can find it [here](https://github.com/nura-vault/nura-backend)
 
-<div align="center" data-aos="fade-right">
+<div align="center" data-aos="zoom-in">
     <img
        src="https://i.imgur.com/WqGBNWx.png"
     />
