@@ -1,6 +1,6 @@
 # nura
 
-<div align="center">
+<div align="center" data-aos="flip-down">
   <a href="https://reactjs.org/" target="_blank">
     <img
       src="https://img.shields.io/badge/Written%20in-React-%23EF4041?style=for-the-badge"
