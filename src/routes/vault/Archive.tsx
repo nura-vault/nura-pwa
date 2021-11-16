@@ -1,10 +1,10 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Alert from 'react-s-alert';
 import styled from 'styled-components';
+import PasswordList from '../../components/PasswordList';
 import { getArchive, removePasswordFromArchive } from '../../endpoints/Archive';
 import { addPasswordToVault, decryptPassword } from '../../endpoints/Vault';
-import PasswordList from '../../components/PasswordList';
 import { useDispatch, useSelector } from '../../store/store';
 import { Password } from '../../store/vaultSlice';
 
@@ -22,8 +22,8 @@ const Delete = styled.div`
 
 function Archive() {
 
-    const history = useHistory();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const mail = useSelector(state => state.auth.mail);
     const token = useSelector(state => state.auth.accessToken);
@@ -32,7 +32,7 @@ function Archive() {
     const archive = useSelector(state => state.archive);
 
     function removePassword(password: Password) {
-        removePasswordFromArchive(dispatch, history, mail, token, password)
+        removePasswordFromArchive(dispatch, navigate, mail, token, password)
 
         Alert.error('Password deleted!', {
             position: 'bottom',
@@ -43,14 +43,14 @@ function Archive() {
     }
 
     function unarchivePassword(password: Password) {
-        addPasswordToVault(dispatch, history, mail, token, masterToken, {
+        addPasswordToVault(dispatch, navigate, mail, token, masterToken, {
             identifier: password.identifier,
             password: decryptPassword(password.password, masterToken),
             website: password.website,
             username: password.username
         });
 
-        removePasswordFromArchive(dispatch, history, mail, token, password)
+        removePasswordFromArchive(dispatch, navigate, mail, token, password)
 
         Alert.info('Password unarchived', {
             position: 'bottom',
@@ -103,7 +103,7 @@ function Archive() {
     }
 
     React.useEffect(() => {
-        getArchive(dispatch, history, mail, token);
+        getArchive(dispatch, navigate, mail, token);
     }, []);
 
     return (

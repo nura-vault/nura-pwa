@@ -1,6 +1,6 @@
 import { SHA256 } from "crypto-js";
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Alert from 'react-s-alert';
 import styled from "styled-components";
 import { Button, Container, Input, Parent } from "../../components/styled/Formular";
@@ -38,7 +38,7 @@ function Token() {
     const token: React.RefObject<HTMLInputElement> = React.createRef();
 
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigator = useNavigate();
 
     function submitToken() {
         if (!token.current)
@@ -54,7 +54,7 @@ function Token() {
         }
 
         dispatch(auth.setMasterToken(SHA256(token.current.value).toString()));
-        history.push('/vault');
+        navigator('/vault');
     }
 
     return (

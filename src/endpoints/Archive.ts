@@ -5,7 +5,7 @@ import { Dispatch } from "../store/store";
 import CryptoJS from "crypto-js"
 import { Password } from "../store/vaultSlice";
 
-export function getArchive(dispatch: Dispatch, history: any, mail: string, token: string) {
+export function getArchive(dispatch: Dispatch, navigate: any, mail: string, token: string) {
     fetch(config.host + '/api/archive', {
         method: 'GET',
         headers: {
@@ -17,7 +17,7 @@ export function getArchive(dispatch: Dispatch, history: any, mail: string, token
         dispatch(archive.clearPasswords());
 
         if (data.error) {
-            history.push('/logout');
+            navigate('/logout');
             return;
         }
 
@@ -32,7 +32,7 @@ export function getArchive(dispatch: Dispatch, history: any, mail: string, token
     })
 }
 
-export function addPasswordToArchive(dispatch: Dispatch, history: any, mail: string, token: string, password: Password) {
+export function addPasswordToArchive(dispatch: Dispatch, navigate: any, mail: string, token: string, password: Password) {
     const requestData = {
         method: 'POST',
         headers: {
@@ -53,7 +53,7 @@ export function addPasswordToArchive(dispatch: Dispatch, history: any, mail: str
         dispatch(archive.clearPasswords());
 
         if (data.error) {
-            history.push('/logout');
+            navigate('/logout');
             return;
         }
 
@@ -81,7 +81,7 @@ export function addPasswordToArchive(dispatch: Dispatch, history: any, mail: str
     })
 }
 
-export function removePasswordFromArchive(dispatch: Dispatch, history: any, mail: string, token: string, password: Password) {
+export function removePasswordFromArchive(dispatch: Dispatch, navigate: any, mail: string, token: string, password: Password) {
     const requestData = {
         method: 'DELETE',
         headers: {
@@ -99,7 +99,7 @@ export function removePasswordFromArchive(dispatch: Dispatch, history: any, mail
     fetch(config.host + '/api/archive', requestData).then(result => result.json()).then(data => {
 
         if (data.error) {
-            history.push('/logout');
+            navigate('/logout');
             return;
         }
 

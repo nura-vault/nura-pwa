@@ -1,13 +1,13 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Logout() {
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         localStorage.removeItem('state');
-        history.push('/login');
+        navigate('/login');
     }, []);
 
     return <></>;

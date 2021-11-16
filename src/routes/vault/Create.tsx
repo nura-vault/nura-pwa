@@ -5,7 +5,7 @@ import { generatePassword } from "../../endpoints/Password"
 import { addPasswordToVault } from "../../endpoints/Vault"
 import { Button, Input } from "../../components/styled/Formular"
 import { useDispatch, useSelector } from "../../store/store"
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 
 const Container = styled.div`
     border-radius: 10px;
@@ -67,7 +67,7 @@ function Create() {
     const password: React.RefObject<HTMLInputElement> = React.createRef();
 
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const mail = useSelector(state => state.auth.mail);
     const token = useSelector(state => state.auth.accessToken);
@@ -90,18 +90,18 @@ function Create() {
             return
         }
 
-        addPasswordToVault(dispatch, history, mail, token, masterToken, {
+        addPasswordToVault(dispatch, navigate, mail, token, masterToken, {
             identifier: identifier.current.value,
             website: website.current.value,
             username: username.current.value,
             password: password.current.value,
         })
 
-        history.push("/vault")
+        navigate("/vault")
     }
 
     function handleAbort() {
-        history.push("/vault")
+        navigate("/vault")
     }
 
     return (<>

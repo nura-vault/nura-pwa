@@ -1,14 +1,12 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import 'react-s-alert/dist/s-alert-default.css';
 import { Button, Form, Input, Parent } from '../../components/styled/Formular';
-import { getArchive } from '../../endpoints/Archive';
 import { signin } from '../../endpoints/SignIn';
 import { signup } from '../../endpoints/SignUp';
-import { getVault } from '../../endpoints/Vault';
-import { useDispatch, useSelector } from '../../store/store';
+import { useDispatch } from '../../store/store';
 import './Login.css';
 
 
@@ -24,7 +22,7 @@ const Login = () => {
     const signUpMail: React.RefObject<HTMLInputElement> = React.createRef();
 
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     function singIn() {
         if (!signInMail.current || !signInPassword.current)
@@ -39,7 +37,7 @@ const Login = () => {
         }
 
         signin(dispatch, signInMail.current.value, signInPassword.current.value, () => {
-            history.push("/login/token")
+            navigate("/login/token")
         }, (error) => {
             Alert.error(error, {
                 position: 'bottom',
@@ -72,7 +70,7 @@ const Login = () => {
         }
 
         signup(dispatch, signUpUsername.current.value, signUpMail.current.value, signUpPassword.current.value, () => {
-            history.push("/login/token")
+            navigate("/login/token")
         }, (error) => {
             Alert.error(error, {
                 position: 'bottom',

@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Password } from "../store/vaultSlice";
 import { Container } from "./styled/Container";
@@ -147,7 +147,7 @@ function PasswordList(props: Props) {
     const [selected, setSelected] = React.useState<Password>()
     const [width, height] = useWindowSize();
 
-    const history = useHistory()
+    const navigate = useNavigate()
 
     function copyPassword(password: string) {
         props.copy && props.copy(password);
@@ -247,7 +247,7 @@ function PasswordList(props: Props) {
             <ControllContainer>
                 {props.controll && props.controll.map(controll => {
                     return (
-                        <ControllButton key={controll.fallback} onClick={() => history.push(controll.fallback)}>
+                        <ControllButton key={controll.fallback} onClick={() => navigate(controll.fallback)}>
                             <i className={controll.boxicon} style={{
                                 fontSize: '25px'
                             }} />

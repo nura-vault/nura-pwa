@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     fallback?: string
@@ -9,7 +9,7 @@ interface Props {
 }
 
 function Validate(props: Props) {
-    const history = useHistory()
+    const navigate = useNavigate()
 
     function flag() {
         return props.inverted ? localStorage.getItem(props.localStore) !== null : localStorage.getItem(props.localStore) === null;
@@ -18,7 +18,7 @@ function Validate(props: Props) {
     React.useEffect(() => {
         if (flag()) {
             if (props.fallback)
-                history.push(props.fallback)
+                navigate(props.fallback)
         }
     }, []);
 

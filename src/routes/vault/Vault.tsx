@@ -1,10 +1,10 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Alert from 'react-s-alert';
 import styled from 'styled-components';
+import PasswordList from '../../components/PasswordList';
 import { addPasswordToArchive } from '../../endpoints/Archive';
 import { decryptPassword, getVault, removePasswordFromVault } from '../../endpoints/Vault';
-import PasswordList from '../../components/PasswordList';
 import { useDispatch, useSelector } from '../../store/store';
 import { Password } from '../../store/vaultSlice';
 
@@ -20,8 +20,8 @@ const Delete = styled.div`
 
 function Vault() {
 
-    const history = useHistory();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const mail = useSelector(state => state.auth.mail);
     const token = useSelector(state => state.auth.accessToken);
@@ -30,9 +30,9 @@ function Vault() {
     const vault = useSelector(state => state.vault);
 
     function archivePassword(password: Password) {
-        removePasswordFromVault(dispatch, history, mail, token, password);
+        removePasswordFromVault(dispatch, navigate, mail, token, password);
 
-        addPasswordToArchive(dispatch, history, mail, token, password)
+        addPasswordToArchive(dispatch, navigate, mail, token, password)
 
         Alert.info('Password archived!', {
             position: 'bottom',
@@ -85,7 +85,7 @@ function Vault() {
     }
 
     React.useEffect(() => {
-        getVault(dispatch, history, mail, token);
+        getVault(dispatch, navigate, mail, token);
     }, []);
 
     return (

@@ -5,7 +5,7 @@ import { Dispatch } from "../store/store";
 import { Password, vault } from "../store/vaultSlice";
 import CryptoJS from "crypto-js"
 
-export function getVault(dispatch: Dispatch, history: any, mail: string, token: string) {
+export function getVault(dispatch: Dispatch, navigate: any, mail: string, token: string) {
     fetch(config.host + '/api/vault', {
         method: 'GET',
         headers: {
@@ -17,7 +17,7 @@ export function getVault(dispatch: Dispatch, history: any, mail: string, token: 
         dispatch(vault.clearPasswords());
 
         if (data.error) {
-            history.push('/logout');
+            navigate('/logout');
             return;
         }
 
@@ -32,7 +32,7 @@ export function getVault(dispatch: Dispatch, history: any, mail: string, token: 
     })
 }
 
-export function addPasswordToVault(dispatch: Dispatch, history: any, mail: string, token: string, masterToken: string, password: Password) {
+export function addPasswordToVault(dispatch: Dispatch, navigate: any, mail: string, token: string, masterToken: string, password: Password) {
     const requestData = {
         method: 'POST',
         headers: {
@@ -53,7 +53,7 @@ export function addPasswordToVault(dispatch: Dispatch, history: any, mail: strin
         dispatch(vault.clearPasswords());
 
         if (data.error) {
-            history.push('/logout');
+            navigate('/logout');
             return;
         }
 
@@ -81,7 +81,7 @@ export function addPasswordToVault(dispatch: Dispatch, history: any, mail: strin
     })
 }
 
-export function removePasswordFromVault(dispatch: Dispatch, history: any, mail: string, token: string, password: Password) {
+export function removePasswordFromVault(dispatch: Dispatch, navigate: any, mail: string, token: string, password: Password) {
     const requestData = {
         method: 'DELETE',
         headers: {
@@ -101,7 +101,7 @@ export function removePasswordFromVault(dispatch: Dispatch, history: any, mail: 
     fetch(config.host + '/api/vault', requestData).then(result => result.json()).then(data => {
 
         if (data.error) {
-            history.push('/logout');
+            navigate('/logout');
             return;
         }
 

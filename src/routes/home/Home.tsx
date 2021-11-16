@@ -1,7 +1,8 @@
 import isElectron from 'is-electron';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Link, useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import rehypeRaw from 'rehype-raw';
 import Validate from '../../components/Validate';
 import "./Home.css";
@@ -9,14 +10,14 @@ import "./Home.css";
 function Home() {
 
     const [content, setContent] = React.useState(localStorage.getItem("readme") || '');
-    const history = useHistory();
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         if (localStorage.getItem("state")) {
             if (sessionStorage.getItem("session_time"))
                 return;
 
-            history.push("/vault")
+            navigate("/vault")
             sessionStorage.setItem("session_time", Date());
         }
 

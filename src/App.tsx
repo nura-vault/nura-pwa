@@ -1,9 +1,8 @@
 import TitleBar from 'frameless-titlebar';
 import isElectron from 'is-electron';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { config } from './config';
 import Home from './routes/home/Home';
 import Login from './routes/login/Login';
 import Token from './routes/login/Token';
@@ -46,15 +45,15 @@ function App() {
   return (<>
     {Titlebar()}
     <Router>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/login/token" exact component={Token} />
-        <Route path="/logout" exact component={Logout} />
-        <Route path="/vault" exact component={Vault} />
-        <Route path="/vault/create" exact component={Create} />
-        <Route path="/vault/archive" exact component={Archive} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/login/token" element={<Token />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/vault" element={<Vault />} />
+        <Route path="/vault/create" element={<Create />} />
+        <Route path="/vault/archive" element={<Archive />} />
+      </Routes>
     </Router>
   </>);
 }
