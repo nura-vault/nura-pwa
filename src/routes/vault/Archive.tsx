@@ -43,7 +43,12 @@ function Archive() {
     }
 
     function unarchivePassword(password: Password) {
-        addPasswordToVault(dispatch, history, mail, token, masterToken, password);
+        addPasswordToVault(dispatch, history, mail, token, masterToken, {
+            identifier: password.identifier,
+            password: decryptPassword(password.password, masterToken),
+            website: password.website,
+            username: password.username
+        });
 
         removePasswordFromArchive(dispatch, history, mail, token, password)
 
