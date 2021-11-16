@@ -19,7 +19,7 @@
 
 nura is a [PWA](#what-is-a-pwa) that allows you to create and manage your passwords. To start right of, you have to create an account. The backend is also open source and you can find it [here](https://github.com/nura-vault/nura-backend)
 
-<div align="center">
+<div align="center" data-aos="fade-right">
     <img
        src="https://i.imgur.com/WqGBNWx.png"
     />
@@ -35,7 +35,7 @@ Your login password will be hashed and stored in a database which is, thanks to 
 
 Your passwords are also stored in the database but encrypted with a key that is stored in the browser. This key is a second password, a pass-phrase which is hashed in `SHA256` as well. To be able to encrypt your passwords a symmetric encryption algorithm is used. This algorithm is called `AES256`. However, each passwords encryption varies. Therefore even the same passwords produce different outputs. This makes it even safer to use!
 
-<div align="center">
+<div align="center" data-aos="fade-left">
     <img
         src="https://i.imgur.com/ZKRjgU2.png"
     />
@@ -49,7 +49,7 @@ If you do, no-one will be able to restore your passwords. Because the key is now
 
 Some might argue that being able to use a password manager offline is useless since you can't use your passwords anywhere. However, being able to access your passwords everywhere is a great feature to have. Thanks to the [service workers](https://developers.google.com/web/fundamentals/primers/service-workers/) the whole side will be cached with the **Stale-While-Revalidate** strategy:
 
-<div align="center">
+<div align="center" data-aos="fade-right">
     <img
       src="https://i.imgur.com/LoQATnO.png"
     />

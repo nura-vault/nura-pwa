@@ -58,7 +58,7 @@ function Home() {
             justifyContent: 'center',
             paddingTop: '50px'
         }}>
-            <div className="markdown">
+            <div className="markdown" data-aos="fade-up">
                 <ReactMarkdown rehypePlugins={[rehypeRaw]} children={content} />,
             </div>
         </div>
