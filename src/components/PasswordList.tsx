@@ -64,7 +64,7 @@ const Button = styled.button`
     }
 `
 
-const DeleteContainer = styled.div`
+const ControllContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -75,7 +75,19 @@ const DeleteContainer = styled.div`
     margin-top: -50px;
 `
 
-const ControllContainer = styled.div`
+export const Controll = styled.div`
+    background-color: #00000000;
+    border: none;
+    color: grey;
+
+    margin-left: 10px;
+
+    &:hover {
+        color: white
+    }
+`
+
+const NavContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -84,7 +96,7 @@ const ControllContainer = styled.div`
     height: 80px;
 `
 
-const ControllButton = styled.button`
+const NavButton = styled.button`
     background-color: #00000000;
     border: none;
 
@@ -226,7 +238,7 @@ function PasswordList(props: Props) {
                                         {password.identifier} <br />
                                         *********
                                     </Text>
-                                    <DeleteContainer onClick={event => {
+                                    <ControllContainer onClick={event => {
                                         if (event.target === event.currentTarget)
                                             return;
 
@@ -236,7 +248,7 @@ function PasswordList(props: Props) {
                                             selectDefault();
                                     }}>
                                         {props.children && props.children(password)}
-                                    </DeleteContainer>
+                                    </ControllContainer>
                                 </div>
                             </Button>
                         )
@@ -244,18 +256,18 @@ function PasswordList(props: Props) {
                 </Panel>
                 <InformationPanel />
             </Container>
-            <ControllContainer>
+            <NavContainer>
                 {props.controll && props.controll.map(controll => {
                     return (
-                        <ControllButton key={controll.fallback} onClick={() => navigate(controll.fallback)}>
+                        <NavButton key={controll.fallback} onClick={() => navigate(controll.fallback)}>
                             <i className={controll.boxicon} style={{
                                 fontSize: '25px'
                             }} />
                             <Text>{controll.text}</Text>
-                        </ControllButton>
+                        </NavButton>
                     )
                 })}
-            </ControllContainer>
+            </NavContainer>
         </Parent>
     );
 }

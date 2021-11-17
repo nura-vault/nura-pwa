@@ -1,22 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-s-alert';
-import styled from 'styled-components';
-import PasswordList from '../../components/PasswordList';
+import PasswordList, { Controll } from '../../components/PasswordList';
 import { addPasswordToArchive } from '../../endpoints/Archive';
 import { decryptPassword, getVault, removePasswordFromVault } from '../../endpoints/Vault';
 import { useDispatch, useSelector } from '../../store/store';
 import { Password } from '../../store/vaultSlice';
 
-const Delete = styled.div`
-    background-color: #00000000;
-    border: none;
-    color: grey;
 
-    &:hover {
-        color: white
-    }
-`
 
 function Vault() {
 
@@ -124,11 +115,11 @@ function Vault() {
             }
         >
             {(password) => (<>
-                <Delete onClick={event => {
+                <Controll onClick={() => {
                     archivePassword(password)
                 }}>
                     <i className='bx bxs-archive-in'></i>
-                </Delete>
+                </Controll>
             </>)}
         </PasswordList>
     );
