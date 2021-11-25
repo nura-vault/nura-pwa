@@ -16,7 +16,7 @@ export function getArchive(dispatch: Dispatch, navigate: any, mail: string, toke
     }).then(result => result.json()).then(data => {
         dispatch(archive.clearPasswords());
 
-        if (data.error) {
+        if (data.message) {
             navigate('/logout');
             return;
         }
@@ -52,7 +52,7 @@ export function addPasswordToArchive(dispatch: Dispatch, navigate: any, mail: st
     fetch(config.host + '/api/archive', requestData).then(result => result.json()).then(data => {
         dispatch(archive.clearPasswords());
 
-        if (data.error) {
+        if (data.message) {
             navigate('/logout');
             return;
         }
@@ -98,7 +98,7 @@ export function removePasswordFromArchive(dispatch: Dispatch, navigate: any, mai
 
     fetch(config.host + '/api/archive', requestData).then(result => result.json()).then(data => {
 
-        if (data.error) {
+        if (data.message) {
             navigate('/logout');
             return;
         }

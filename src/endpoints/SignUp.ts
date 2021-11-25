@@ -16,8 +16,8 @@ export function signup(dispatch: Dispatch, username: string, mail: string, passw
         })
     }).then(response => response.json()).then(data => {
 
-        if (data.error) {
-            error && error(data.error)
+        if (data.message) {
+            error && error(data.message)
             return
         }
 

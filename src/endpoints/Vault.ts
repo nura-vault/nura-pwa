@@ -16,7 +16,7 @@ export function getVault(dispatch: Dispatch, navigate: any, mail: string, token:
     }).then(result => result.json()).then(data => {
         dispatch(vault.clearPasswords());
 
-        if (data.error) {
+        if (data.message) {
             navigate('/logout');
             return;
         }
@@ -52,7 +52,7 @@ export function addPasswordToVault(dispatch: Dispatch, navigate: any, mail: stri
     fetch(config.host + '/api/vault', requestData).then(result => result.json()).then(data => {
         dispatch(vault.clearPasswords());
 
-        if (data.error) {
+        if (data.message) {
             navigate('/logout');
             return;
         }
@@ -100,7 +100,7 @@ export function removePasswordFromVault(dispatch: Dispatch, navigate: any, mail:
 
     fetch(config.host + '/api/vault', requestData).then(result => result.json()).then(data => {
 
-        if (data.error) {
+        if (data.message) {
             navigate('/logout');
             return;
         }
