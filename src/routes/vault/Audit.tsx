@@ -64,14 +64,14 @@ function Audit() {
             controll={
                 [
                     {
+                        fallback: '/vault/archive',
+                        boxicon: 'bx bxs-archive',
+                        text: 'Archive'
+                    },
+                    {
                         fallback: '/vault',
                         boxicon: 'bx bxs-carousel',
                         text: 'Vault'
-                    },
-                    {
-                        fallback: '/',
-                        boxicon: 'bx bxs-home',
-                        text: 'Home'
                     },
                     {
                         fallback: '/logout',
