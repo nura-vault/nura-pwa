@@ -6,6 +6,7 @@ export interface AuditLog {
     action: string
     accessToken: string
     agent: string
+    message: string
     timestamp: number
 }
 

@@ -32,14 +32,14 @@ function Archive() {
     }
 
     function unarchivePassword(password: Password) {
+        removePasswordFromArchive(dispatch, navigate, mail, token, password)
+
         addPasswordToVault(dispatch, navigate, mail, token, masterToken, {
             identifier: password.identifier,
             password: decryptPassword(password.password, masterToken),
             website: password.website,
             username: password.username
         });
-
-        removePasswordFromArchive(dispatch, navigate, mail, token, password)
 
         Alert.info('Password unarchived', {
             position: 'bottom',
