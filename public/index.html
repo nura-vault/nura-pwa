@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
 
-    <meta
-      name="description"
-      content="Your password solution so safely store your passwords"
-    />
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
 
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
+  <meta name="description" content="Your password solution so safely store your passwords" />
 
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
 
-    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-    <title>nura</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
-    <div id="root"></div>
+  <title>nura</title>
+</head>
 
-  </body>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+
+  <div id="root"></div>
+
+</body>
+
 </html>
 
 <script>
@@ -35,11 +35,11 @@
     duration: 1000,
   });
 
-  if('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./serviceworker.js')
-              .then(register => console.log('Success: ', register.scope))
-              .catch(error => console.log('Failure: ', error));
-      })
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./serviceworker.js')
+        .then(register => console.log('Success: ', register.scope))
+        .catch(error => console.log('Failure: ', error));
+    })
   }
 </script>
