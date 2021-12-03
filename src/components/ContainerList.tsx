@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Container } from "./styled/Container";
+import { Icon } from "./styled/Icon";
 
 const Parent = styled.div`
     display: flex;
@@ -92,9 +93,7 @@ const ContainerList: React.FunctionComponent<Props> = (props) => {
                 {props.controll && props.controll.map(controll => {
                     return (
                         <NavButton key={controll.fallback} onClick={() => navigate(controll.fallback)}>
-                            <i className={controll.boxicon} style={{
-                                fontSize: '25px'
-                            }} />
+                            <Icon className={controll.boxicon} />
                             <Text>{controll.text}</Text>
                         </NavButton>
                     )
