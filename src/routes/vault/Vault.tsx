@@ -118,7 +118,7 @@ function Vault() {
                 <Controll onClick={() => {
                     archivePassword(password)
                 }}>
-                    <i className='bx bxs-archive-in'></i>
+                    <i className='bx bxs-archive-in' />
                 </Controll>
             </>)}
         </PasswordList>
