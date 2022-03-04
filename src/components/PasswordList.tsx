@@ -1,6 +1,8 @@
 import React from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Search from "../routes/vault/Search";
 import { Password } from "../store/vaultSlice";
 import { Container } from "./styled/Container";
 import { Icon } from "./styled/Icon";
@@ -159,6 +161,15 @@ function PasswordList(props: Props) {
 
     const [selected, setSelected] = React.useState<Password>()
     const [width, height] = useWindowSize();
+    const [searching, setSearching] = React.useState(false)
+
+    useHotkeys('ctrl+space', () => {
+        setSearching(true)
+    })
+
+    useHotkeys('enter,escape', () => {
+        setSearching(false)
+    })
 
     const navigate = useNavigate()
 
@@ -194,6 +205,12 @@ function PasswordList(props: Props) {
         selectDefault();
     }, [width, height]);
 
+    const SearchPopup = () => {
+        if (searching)
+            return <Search />
+        return null;
+    }
+
     const InformationPanel = () => {
         if (width < 600 || props.passwords?.length === 0) return null;
 
@@ -222,7 +239,8 @@ function PasswordList(props: Props) {
         );
     }
 
-    return (
+    return (<>
+        <SearchPopup />
         <Parent>
             <Container>
                 <Panel>
@@ -268,7 +286,7 @@ function PasswordList(props: Props) {
                 })}
             </NavContainer>
         </Parent>
-    );
+    </>);
 }
 
 export default PasswordList;

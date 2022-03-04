@@ -1,27 +1,12 @@
-import React from "react"
-import styled from "styled-components"
-import Alert from 'react-s-alert';
-import { generatePassword } from "../../endpoints/Password"
-import { addPasswordToVault } from "../../endpoints/Vault"
-import { Button, Input } from "../../components/styled/Formular"
-import { useDispatch, useSelector } from "../../store/store"
+import React from "react";
 import { useNavigate } from "react-router";
-
-const Container = styled.div`
-    border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25),
-        0 10px 10px rgba(0,0,0,0.22);
-    position: relative;
-    overflow: hidden;
-    width: 768px;
-    max-width: 100%;
-
-    margin-top: 20px;
-    height: calc(100vh - 100px);
-
-    display: flex;
-    justify-content: space-between;
-`
+import Alert from 'react-s-alert';
+import styled from "styled-components";
+import { Container } from "../../components/styled/Container";
+import { Button, Input } from "../../components/styled/Formular";
+import { generatePassword } from "../../endpoints/Password";
+import { addPasswordToVault } from "../../endpoints/Vault";
+import { useDispatch, useSelector } from "../../store/store";
 
 const Parent = styled.div`
     display: flex;
