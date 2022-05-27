@@ -35,10 +35,10 @@ export function resetPassword(token: string, password: string, mail: string, suc
     }).then((data: any) => {
         console.log(data)
 
-        const failed: boolean = data.code !== 200
+        const failed: boolean = data.code > 400
 
         data.json.then((json: any) => {
-            if (failed) success && success(json.message)
+            if (!failed) success && success(json.message)
             else error && error(json.message)
         })
     })
