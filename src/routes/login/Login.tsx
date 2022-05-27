@@ -4,6 +4,7 @@ import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import 'react-s-alert/dist/s-alert-default.css';
 import { Button, Form, Input, Parent } from '../../components/styled/Formular';
+import { requestResetPassword } from '../../endpoints/Reset';
 import { signin } from '../../endpoints/SignIn';
 import { signup } from '../../endpoints/SignUp';
 import { useDispatch } from '../../store/store';
@@ -24,7 +25,28 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    function singIn() {
+    React.useEffect(() => {
+        const signUpButton = document.getElementById('signUp')
+        const signInButton = document.getElementById('signIn')
+        const container = document.getElementById('login-container')
+
+        const login = document.querySelector(".sign-in-container")
+        const signup = document.querySelector(".sign-up-container")
+
+        signUpButton?.addEventListener('click', () => {
+            container?.classList.add("right-panel-active")
+            login?.classList.add("hide")
+            signup?.classList.remove("hide")
+        });
+
+        signInButton?.addEventListener('click', () => {
+            container?.classList.remove("right-panel-active")
+            login?.classList.remove("hide")
+            signup?.classList.add("hide")
+        });
+    }, [])
+
+    const singIn = () => {
         if (!signInMail.current || !signInPassword.current)
             return;
 
@@ -48,7 +70,7 @@ const Login = () => {
     }
 
 
-    function signUp() {
+    const signUp = () => {
         if (!signUpUsername.current || !signUpMail.current || !signUpPassword.current || !signUpPasswordRepeat.current)
             return;
 
@@ -80,27 +102,6 @@ const Login = () => {
         })
     }
 
-    React.useEffect(() => {
-        const signUpButton = document.getElementById('signUp')
-        const signInButton = document.getElementById('signIn')
-        const container = document.getElementById('login-container')
-
-        const login = document.querySelector(".sign-in-container")
-        const signup = document.querySelector(".sign-up-container")
-
-        signUpButton?.addEventListener('click', () => {
-            container?.classList.add("right-panel-active")
-            login?.classList.add("hide")
-            signup?.classList.remove("hide")
-        });
-
-        signInButton?.addEventListener('click', () => {
-            container?.classList.remove("right-panel-active")
-            login?.classList.remove("hide")
-            signup?.classList.add("hide")
-        });
-    }, [])
-
     return (
         <Parent>
             <div className="login-container" id="login-container">
@@ -110,7 +111,7 @@ const Login = () => {
                         <br />
                         <Input type="email" placeholder="Email" ref={signInMail} />
                         <Input type="password" placeholder="Password" ref={signInPassword} />
-                        {/* <a href="#">Forgot your password?</a> */}
+                        <a style={{ color: '#919191' }} onClick={() => navigate("/reset")}>Forgot your password?</a>
                         <br />
                         <Button onClick={singIn}>Sign In</Button>
                     </Form>
