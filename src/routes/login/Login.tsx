@@ -111,7 +111,7 @@ const Login = () => {
                         <br />
                         <Input type="email" placeholder="Email" ref={signInMail} />
                         <Input type="password" placeholder="Password" ref={signInPassword} />
-                        <a style={{ color: '#919191' }} onClick={() => navigate("/reset")}>Forgot your password?</a>
+                        <a style={{ color: '#919191' }} href="#" onClick={() => navigate("/reset")}>Forgot your password?</a>
                         <br />
                         <Button onClick={singIn}>Sign In</Button>
                     </Form>
