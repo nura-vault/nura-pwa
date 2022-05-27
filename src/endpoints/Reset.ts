@@ -33,13 +33,13 @@ export function resetPassword(token: string, password: string, mail: string, suc
             code: response.status
         }
     }).then((data: any) => {
-        if (!data.json.message) return
+        console.log(data)
 
-        if (data.code === 200) {
-            success && success(data.json.message)
-            return
-        }
+        const failed: boolean = data.code !== 200
 
-        error && error(data.json.message)
+        data.json.then((json: any) => {
+            if (failed) success && success(json.message)
+            else error && error(json.message)
+        })
     })
 }
