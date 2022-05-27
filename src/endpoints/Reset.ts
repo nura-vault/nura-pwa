@@ -1,7 +1,7 @@
 import { SHA256 } from "crypto-js";
 import { config } from "../config";
 
-export function requestResetPassword(mail: string, success?: () => void) {
+export function requestResetPassword(mail: string, success?: (message: string) => void) {
     fetch(config.host + '/api/reset/password', {
         method: 'PUT',
         headers: {
@@ -11,16 +11,12 @@ export function requestResetPassword(mail: string, success?: () => void) {
             'mail': mail
         })
     }).then(result => result.json()).then(data => {
-        // if (data.message) {
-        //     error && error(data.message)
-        //     return
-        // }
-
-        success && success()
+        if (!data.message) return
+        success && success(data.message)
     })
 }
 
-export function resetPassword(token: string, password: string, mail: string, success?: () => void, error?: (message: string) => void) {
+export function resetPassword(token: string, password: string, mail: string, success?: (message: string) => void, error?: (message: string) => void) {
     fetch(config.host + '/api/reset/password', {
         method: 'POST',
         headers: {
@@ -31,12 +27,19 @@ export function resetPassword(token: string, password: string, mail: string, suc
             'mail': mail,
             'password': SHA256(password).toString()
         })
-    }).then(result => result.json()).then(data => {
-        if (data.message) {
-            error && error(data.message)
+    }).then(response => {
+        return {
+            json: response.json(),
+            code: response.status
+        }
+    }).then((data: any) => {
+        if (!data.json.message) return
+
+        if (data.code === 200) {
+            success && success(data.json.message)
             return
         }
 
-        success && success()
+        error && error(data.json.message)
     })
 }
