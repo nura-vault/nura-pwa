@@ -22,7 +22,7 @@ COPY . ./
 # build
 RUN npm run build
 
-RUN npm install serve -g --silent
+RUN npm install serve@12.0.0 -g --silent
 
 # start app
 CMD ["serve", "-s", "build", "-p", "80"]
