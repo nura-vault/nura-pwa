@@ -16,7 +16,7 @@ export function getVault(dispatch: Dispatch, navigate: any, mail: string, token:
     }).then(result => result.json()).then(data => {
         dispatch(vault.clearPasswords());
 
-        if (data.message) {
+        if (data.message || !data.vault) {
             navigate('/logout');
             return;
         }

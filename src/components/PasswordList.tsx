@@ -14,7 +14,7 @@ const Parent = styled.div`
     align-items: center;
     align-content: center;
 
-    min-height: 100vh;
+    height: 100vh;
 `
 
 const Panel = styled.div`
@@ -52,6 +52,9 @@ const RightPanel = styled.div`
             transform: translate(0, 0);
         }
     }
+
+    display: flex;
+    flex-direction: column;
 `
 
 const Button = styled.button`
@@ -67,15 +70,18 @@ const Button = styled.button`
     }
 `
 
+const IconContainer = styled.div`
+    // display: flex;
+    // flex-direction: row;
+    // justify-content: flex-start;
+    // align-items: center;
+`
+
 const ControllContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-
-    width: 100%;
-
-    margin-top: -50px;
 `
 
 export const Controll = styled.div`
@@ -116,7 +122,7 @@ const NavButton = styled.button`
 `
 
 const Text = styled.p`
-    margin-top: -10px;
+    // margin-top: -10px;
 `
 
 const SelectableText = styled.div`
@@ -252,7 +258,17 @@ function PasswordList(props: Props) {
                                     "#ffffff21" :
                                     "#00000000",
                             }}>
-                                <div>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                }}>
+                                    <IconContainer>
+                                        {/* <img
+                                            src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${password.website}%size=528`}
+                                        /> */}
+                                    </IconContainer>
                                     <Text>
                                         {password.identifier} <br />
                                         *********

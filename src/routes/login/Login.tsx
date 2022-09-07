@@ -1,10 +1,10 @@
 import React from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import 'react-s-alert/dist/s-alert-default.css';
 import { Button, Form, Input, Parent } from '../../components/styled/Formular';
-import { requestResetPassword } from '../../endpoints/Reset';
 import { signin } from '../../endpoints/SignIn';
 import { signup } from '../../endpoints/SignUp';
 import { useDispatch } from '../../store/store';
@@ -12,7 +12,7 @@ import './Login.css';
 
 
 
-const Login = () => {
+const Login: React.FunctionComponent<any> = (props) => {
 
     const signInPassword: React.RefObject<HTMLInputElement> = React.createRef();
     const signInMail: React.RefObject<HTMLInputElement> = React.createRef();
@@ -46,7 +46,18 @@ const Login = () => {
         });
     }, [])
 
-    const singIn = () => {
+    useHotkeys('enter', () => {
+        if (!signInMail.current || !signInPassword.current) {
+            signUp()
+            return
+        }
+
+        signIn()
+    }, {
+        enableOnTags: ["INPUT"]
+    })
+
+    const signIn = () => {
         if (!signInMail.current || !signInPassword.current)
             return;
 
@@ -113,7 +124,7 @@ const Login = () => {
                         <Input type="password" placeholder="Password" ref={signInPassword} />
                         <a style={{ color: '#919191' }} href="#" onClick={() => navigate("/reset")}>Forgot your password?</a>
                         <br />
-                        <Button onClick={singIn}>Sign In</Button>
+                        <Button onClick={signIn}>Sign In</Button>
                     </Form>
                 </div>
                 <div className="form-container sign-up-container">

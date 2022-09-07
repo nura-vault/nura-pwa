@@ -1,5 +1,6 @@
 import { SHA256 } from "crypto-js";
 import React from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { useNavigate } from "react-router-dom";
 import Alert from 'react-s-alert';
 import styled from "styled-components";
@@ -33,14 +34,20 @@ const RightPanel = styled.div`
     background-position: 0 0;
 `
 
-function Token() {
+const Token: React.FunctionComponent<any> = (props) => {
 
     const token: React.RefObject<HTMLInputElement> = React.createRef();
 
     const dispatch = useDispatch();
     const navigator = useNavigate();
 
-    function submitToken() {
+    useHotkeys('enter', () => {
+        submitToken()
+    }, {
+        enableOnTags: ["INPUT"]
+    })
+
+    const submitToken = () => {
         if (!token.current)
             return;
 
