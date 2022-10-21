@@ -42,4 +42,9 @@
                 .catch(error => console.log('Failure: ', error));
         })
     }
+
+    window.console = {
+        warn: () => {},
+        error: () => {}
+    }
 </script>
