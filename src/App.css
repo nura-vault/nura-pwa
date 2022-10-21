@@ -18,3 +18,7 @@ table th {
     text-align: left;
     color: white;
 }
+
+img {
+    text-indent: -10000px;
+}

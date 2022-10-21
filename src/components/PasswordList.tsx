@@ -71,10 +71,10 @@ const Button = styled.button`
 `
 
 const IconContainer = styled.div`
-    // display: flex;
-    // flex-direction: row;
-    // justify-content: flex-start;
-    // align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 const ControllContainer = styled.div`
@@ -262,12 +262,30 @@ function PasswordList(props: Props) {
                                     display: 'flex',
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
-                                    alignItems: 'center'
+                                    alignItems: 'center',
+                                    maxHeight: '100%'
                                 }}>
                                     <IconContainer>
-                                        {/* <img
-                                            src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${password.website}%size=528`}
-                                        /> */}
+                                        <img
+                                            id={password.identifier + password.password}
+                                            src={`${password.website || '/'}/favicon.ico`}
+                                            style={{
+                                                borderRadius: '50%',
+                                                border: '1px solid #212121'
+                                            }}
+                                            height="30px"
+                                            width="30px"
+                                            onError={(event) => {
+                                                const element = document.getElementById(password.identifier + password.password) as any
+                                                const target = event.target as any
+
+                                                if (element.src.endsWith('/favicon.ico'))
+                                                    element.src = `//f9.allesedv.com/32/${password.website}`
+
+                                                else if (target.naturalHeight + target.naturalWidth === 2)
+                                                    element.src = "/transparent.png"
+                                            }}
+                                        />
                                     </IconContainer>
                                     <Text>
                                         {password.identifier} <br />
