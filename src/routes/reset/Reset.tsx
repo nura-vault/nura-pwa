@@ -114,11 +114,11 @@ const Reset: React.FunctionComponent = (props) => {
                 <RightPanel>
                     <h1>Want to reset your password?</h1>
                     <p>
-                        In case an account is associated with this mail address, an email will be sent.
+                        In case an account is associated with the provided address, a mail will be sent.
                         Make sure to check your mails.
                     </p>
                     <p>
-                        If you no longer have access to your email address, contect your administrator.
+                        If you no longer have access to your email address, contact your administrator.
                     </p>
                     <p>
                         For security reasons you will not be informed whether this mail is connected to an account.
