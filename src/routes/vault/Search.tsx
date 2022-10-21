@@ -86,7 +86,7 @@ const Search: React.FunctionComponent<any> = (props) => {
                             }}>
                                 <Text>
                                     {password.identifier} <br />
-                                    *********
+                                    {password.username}
                                 </Text>
                             </Button>
                         })
