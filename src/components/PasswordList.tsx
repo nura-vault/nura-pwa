@@ -253,7 +253,7 @@ function PasswordList(props: Props) {
                     {!props.passwords || props.passwords.length === 0 ? props.empty : null}
                     {props.passwords && props.passwords.map(password => {
                         return (
-                            <Button key={password.identifier + password.password} onClick={() => selectPassword(password)} style={{
+                            <Button key={password.identifier + password.password} type="button" onClick={() => selectPassword(password)} style={{
                                 backgroundColor: selected?.identifier === password.identifier && selected.password === password.password ?
                                     "#ffffff21" :
                                     "#00000000",
@@ -275,14 +275,20 @@ function PasswordList(props: Props) {
                                             }}
                                             height="30px"
                                             width="30px"
-                                            onError={(event) => {
+                                            onLoad={(event) => {
                                                 const element = document.getElementById(password.identifier + password.password) as any
                                                 const target = event.target as any
 
-                                                if (element.src.endsWith('/favicon.ico'))
-                                                    element.src = `//f9.allesedv.com/32/${password.website}`
-
-                                                else if (target.naturalHeight + target.naturalWidth === 2)
+                                                if (target.naturalHeight + target.naturalWidth === 32)
+                                                    element.src = "/transparent.png"
+                                            }}
+                                            onError={() => {
+                                                const element = document.getElementById(password.identifier + password.password) as any
+                                                
+                                                if (element.src.endsWith('/favicon.ico')) {
+                                                    const website = password.website.startsWith('http') ? password.website : `https://${password.website}/`
+                                                    element.src = `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${website}&size=128`
+                                                } else 
                                                     element.src = "/transparent.png"
                                             }}
                                         />
