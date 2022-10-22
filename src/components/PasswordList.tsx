@@ -77,6 +77,20 @@ const IconContainer = styled.div`
     align-items: center;
 `
 
+const Favicon = styled.img`
+    border-radius: 50%;
+    animation: show 2s;
+
+    @keyframes show {
+        0%, 80% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+`
+
 const ControllContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -266,13 +280,9 @@ function PasswordList(props: Props) {
                                     maxHeight: '100%'
                                 }}>
                                     <IconContainer>
-                                        <img
+                                        <Favicon
                                             id={password.identifier + password.password}
                                             src={`${password.website || '/'}/favicon.ico`}
-                                            style={{
-                                                borderRadius: '50%',
-                                                border: '1px solid #212121'
-                                            }}
                                             height="30px"
                                             width="30px"
                                             onLoad={(event) => {
