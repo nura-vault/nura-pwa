@@ -225,6 +225,19 @@ function PasswordList(props: Props) {
         selectDefault();
     }, [width, height]);
 
+    React.useEffect(() => {
+        props.passwords?.forEach(password => {
+            fetch(`https://grepcon.micartey.dev/api/v1/favicon?url=${password.website}&fallback=/transparent.png`, {
+                method: 'GET',
+            })
+                .then(response => response.text())
+                .then(response => {
+                    const element = document.getElementById(password.identifier + password.password) as any
+                    element.src = response
+                })
+        })
+    }, [])
+
     const SearchPopup = () => {
         if (searching)
             return <Search />
@@ -282,25 +295,9 @@ function PasswordList(props: Props) {
                                     <IconContainer>
                                         <Favicon
                                             id={password.identifier + password.password}
-                                            src={`${password.website || '/'}/favicon.ico`}
+                                            src={'/transparent.png'}
                                             height="30px"
                                             width="30px"
-                                            onLoad={(event) => {
-                                                const element = document.getElementById(password.identifier + password.password) as any
-                                                const target = event.target as any
-
-                                                if (target.naturalHeight + target.naturalWidth === 32)
-                                                    element.src = "/transparent.png"
-                                            }}
-                                            onError={() => {
-                                                const element = document.getElementById(password.identifier + password.password) as any
-                                                
-                                                if (element.src.endsWith('/favicon.ico')) {
-                                                    const website = password.website.startsWith('http') ? password.website : `https://${password.website}/`
-                                                    element.src = `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${website}&size=128`
-                                                } else 
-                                                    element.src = "/transparent.png"
-                                            }}
                                         />
                                     </IconContainer>
                                     <Text>
