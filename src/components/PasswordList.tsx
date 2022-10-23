@@ -298,6 +298,10 @@ function PasswordList(props: Props) {
                                             src={'/transparent.png'}
                                             height="30px"
                                             width="30px"
+                                            onError={() => {
+                                                const element = document.getElementById(password.identifier + password.password) as any
+                                                element.src = '/transparent.png'
+                                            }}
                                         />
                                     </IconContainer>
                                     <Text>
