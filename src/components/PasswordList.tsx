@@ -228,15 +228,25 @@ function PasswordList(props: Props) {
     React.useEffect(() => {
         const fallback = "/transparent.png"
 
-        props.passwords?.filter(password => !localStorage.getItem(password.website)).forEach(password => {
+        const faviconsMap = JSON.parse(localStorage.getItem('favicons') ?? '{}')
+
+        props.passwords?.filter(password => !faviconsMap[password.website]).forEach(password => {
             const element = document.getElementById(password.identifier + password.password) as any
 
             fetch(`https://grepcon.micartey.dev/api/v1/favicon?url=${password.website}&fallback=${fallback}`, {
                 method: 'GET',
+                headers: {
+                    'Access-Control-Allow-Origin:': '*'
+                }
             })
                 .then(response => response.text())
                 .then(response => {
-                    localStorage.setItem(password.website, response)
+                    if (response.includes(fallback)) 
+                        return
+
+                    faviconsMap[password.website] = response
+                    localStorage.setItem('favicons', JSON.stringify(faviconsMap))
+
                     element.src = response
                 }).catch(() => {
                     element.src = fallback
@@ -284,6 +294,9 @@ function PasswordList(props: Props) {
             <Container>
                 <Panel>
                     {props.passwords ? props.passwords.map(password => {
+
+                        const favicon = JSON.parse(localStorage.getItem('favicons') ?? '{}')[password.website] ?? '/transparent.png'
+
                         return (
                             <Button key={password.identifier + password.password} type="button" onClick={() => selectPassword(password)} style={{
                                 backgroundColor: selected?.identifier === password.identifier && selected.password === password.password ?
@@ -300,7 +313,7 @@ function PasswordList(props: Props) {
                                     <IconContainer>
                                         <Favicon
                                             id={password.identifier + password.password}
-                                            src={`${localStorage.getItem(password.website)}`}
+                                            src={`${favicon}`}
                                             height="30px"
                                             width="30px"
                                             onError={() => {
