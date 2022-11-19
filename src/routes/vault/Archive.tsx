@@ -113,6 +113,11 @@ function Archive() {
                         text: 'Vault'
                     },
                     {
+                        fallback: '/vault/create',
+                        boxicon: 'bx bxs-plus-circle',
+                        text: 'Add'
+                    },
+                    {
                         fallback: '/',
                         boxicon: 'bx bxs-home',
                         text: 'Home'
