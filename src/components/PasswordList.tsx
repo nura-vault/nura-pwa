@@ -226,14 +226,20 @@ function PasswordList(props: Props) {
     }, [width, height]);
 
     React.useEffect(() => {
-        props.passwords?.forEach(password => {
-            fetch(`https://grepcon.micartey.dev/api/v1/favicon?url=${password.website}&fallback=/transparent.png`, {
+        const fallback = "/transparent.png"
+
+        props.passwords?.filter(password => !localStorage.getItem(password.website)).forEach(password => {
+            const element = document.getElementById(password.identifier + password.password) as any
+
+            fetch(`https://grepcon.micartey.dev/api/v1/favicon?url=${password.website}&fallback=${fallback}`, {
                 method: 'GET',
             })
                 .then(response => response.text())
                 .then(response => {
-                    const element = document.getElementById(password.identifier + password.password) as any
+                    localStorage.setItem(password.website, response)
                     element.src = response
+                }).catch(() => {
+                    element.src = fallback
                 })
         })
     }, [])
@@ -277,8 +283,7 @@ function PasswordList(props: Props) {
         <Parent>
             <Container>
                 <Panel>
-                    {!props.passwords || props.passwords.length === 0 ? props.empty : null}
-                    {props.passwords && props.passwords.map(password => {
+                    {props.passwords ? props.passwords.map(password => {
                         return (
                             <Button key={password.identifier + password.password} type="button" onClick={() => selectPassword(password)} style={{
                                 backgroundColor: selected?.identifier === password.identifier && selected.password === password.password ?
@@ -295,10 +300,11 @@ function PasswordList(props: Props) {
                                     <IconContainer>
                                         <Favicon
                                             id={password.identifier + password.password}
-                                            src={'/transparent.png'}
+                                            src={`${localStorage.getItem(password.website)}`}
                                             height="30px"
                                             width="30px"
                                             onError={() => {
+                                                localStorage.removeItem(password.website)
                                                 const element = document.getElementById(password.identifier + password.password) as any
                                                 element.src = '/transparent.png'
                                             }}
@@ -322,12 +328,12 @@ function PasswordList(props: Props) {
                                 </div>
                             </Button>
                         )
-                    })}
+                    }) : props.empty}
                 </Panel>
                 <InformationPanel />
             </Container>
             <NavContainer>
-                {props.controll && props.controll.map(controll => {
+                {props.controll?.map(controll => {
                     return (
                         <NavButton key={controll.fallback} onClick={() => navigate(controll.fallback)}>
                             <Icon className={controll.boxicon} />
