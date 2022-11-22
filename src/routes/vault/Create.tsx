@@ -50,6 +50,8 @@ function Create() {
     const website: React.RefObject<HTMLInputElement> = React.createRef();
     const username: React.RefObject<HTMLInputElement> = React.createRef();
     const password: React.RefObject<HTMLInputElement> = React.createRef();
+    
+    const [passwordLength, setPasswordLength] = React.useState<number>(16);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -61,7 +63,7 @@ function Create() {
     function handleGenerate() {
         if (!password.current) return;
 
-        password.current.value = generatePassword(16)
+        password.current.value = generatePassword(passwordLength)
     }
 
     function handleCreate() {
@@ -85,6 +87,25 @@ function Create() {
         navigate("/vault")
     }
 
+    function updatePasswordLength(event: React.ChangeEvent<HTMLInputElement>) {
+        if (Number(event.target.value) < 8) {
+            Alert.warning('Password is insecure with a length of less than 8 characters', { 
+                position: 'bottom',
+                effect: 'slide'
+            })
+        } 
+
+        if (Number(event.target.value) > 32) {
+            Alert.error('Password is too long', { 
+                position: 'bottom',
+                effect: 'slide'
+            })
+            return
+        }
+
+        setPasswordLength(Number(event.target.value))
+    }
+
     function handleAbort() {
         navigate("/vault")
     }
@@ -100,6 +121,8 @@ function Create() {
                         <Input type="text" placeholder="website" ref={website} />
                         <Input type="text" placeholder="username" ref={username} />
                         <Input type="password" placeholder="password" ref={password} />
+
+                        <Input type="number" name="points" value={passwordLength} onChange={updatePasswordLength} step="2" />
 
                         <div style={{
                             display: "flex",
