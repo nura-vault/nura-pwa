@@ -235,9 +235,6 @@ function PasswordList(props: Props) {
 
             fetch(`https://grepcon.micartey.dev/api/v1/favicon?url=${password.website}&fallback=${fallback}`, {
                 method: 'GET',
-                headers: {
-                    'Access-Control-Allow-Origin:': '*'
-                }
             })
                 .then(response => response.text())
                 .then(response => {
