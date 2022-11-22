@@ -88,12 +88,13 @@ function Create() {
     }
 
     function updatePasswordLength(event: React.ChangeEvent<HTMLInputElement>) {
-        if (Number(event.target.value) < 8) {
-            Alert.warning('Password is insecure with a length of less than 8 characters', { 
+        if (Number(event.target.value) <= 0) {
+            Alert.error('Password length must be greater than 0', {
                 position: 'bottom',
                 effect: 'slide'
             })
-        } 
+            return
+        }
 
         if (Number(event.target.value) > 32) {
             Alert.error('Password is too long', { 
@@ -101,6 +102,13 @@ function Create() {
                 effect: 'slide'
             })
             return
+        }
+
+        if (Number(event.target.value) < 8) {
+            Alert.warning('Password is insecure with a length of less than 8 characters', { 
+                position: 'bottom',
+                effect: 'slide'
+            })
         }
 
         setPasswordLength(Number(event.target.value))
