@@ -4,9 +4,9 @@ import Alert from 'react-s-alert';
 import styled from "styled-components";
 import { Container } from "../../components/styled/Container";
 import { Button, Input } from "../../components/styled/Formular";
-import { generatePassword } from "../../utils/Password";
 import { addPasswordToVault } from "../../endpoints/Vault";
 import { useDispatch, useSelector } from "../../store/store";
+import { generatePassword } from "../../utils/Password";
 
 const Parent = styled.div`
     display: flex;

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Titlebar from './components/Titlebar';
+import { WebsiteLock } from './components/WebsiteLock';
 import Home from './routes/home/Home';
 import Login from './routes/login/Login';
 import Token from './routes/login/Token';
@@ -14,7 +15,9 @@ import Vault from './routes/vault/Vault';
 
 function App() {
 
-    return <>
+    const [locked, setLocked] = React.useState<boolean>(!Boolean(localStorage.getItem('audit')))
+
+    return !locked ? <>
         <Titlebar />
         <Router>
             <Routes>
@@ -29,7 +32,10 @@ function App() {
                 <Route path="/reset" element={<Reset />} />
             </Routes>
         </Router>
-    </>
+    </> : <WebsiteLock onSuccess={() => {
+        localStorage.setItem('audit', 'true')
+        setLocked(false)
+    }} />
 }
 
 export default App;
