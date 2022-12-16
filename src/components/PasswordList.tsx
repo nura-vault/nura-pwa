@@ -225,32 +225,6 @@ function PasswordList(props: Props) {
         selectDefault();
     }, [width, height]);
 
-    React.useEffect(() => {
-        const fallback = "/transparent.png"
-
-        const faviconsMap = JSON.parse(localStorage.getItem('favicons') ?? '{}')
-
-        props.passwords?.filter(password => !faviconsMap[password.website]).forEach(password => {
-            const element = document.getElementById(password.identifier + password.password) as any
-
-            fetch(`https://grepcon.micartey.dev/api/v1/favicon?url=${password.website}&fallback=${fallback}`, {
-                method: 'GET',
-            })
-                .then(response => response.text())
-                .then(response => {
-                    if (response.includes(fallback)) 
-                        return
-
-                    faviconsMap[password.website] = response
-                    localStorage.setItem('favicons', JSON.stringify(faviconsMap))
-
-                    element.src = response
-                }).catch(() => {
-                    element.src = fallback
-                })
-        })
-    }, [])
-
     const SearchPopup = () => {
         if (searching)
             return <Search />
@@ -310,7 +284,7 @@ function PasswordList(props: Props) {
                                     <IconContainer>
                                         <Favicon
                                             id={password.identifier + password.password}
-                                            src={`${favicon}`}
+                                            src={`https://grepcon.micartey.dev/api/v1/favicon?url=${password.website}&fallback=https://nura.micartey.dev/transparent.png`}
                                             height="30px"
                                             width="30px"
                                             onError={() => {
